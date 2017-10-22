@@ -4,52 +4,13 @@ namespace ServerInfo\Helpers;
 
 Class Format
 {
-    
-    public function stripEOL($string)
-    {
-        return trim(preg_replace('/\s+/', ' ', $string));
-    }
-    
-    public function readVhost($string)
-    {
-        $lines = explode(PHP_EOL, $string);
-        
-        $http         = 0;
-        $https        = 0;
-        $currentIndex = 0;
-        $key          = 'undefined';
-        
-        foreach ($lines as $line) {
-            $line = $this->trimLeadingSpaces($line);
-            
-            $lineValues = explode(' ', $line);
-            
-            if ($lineValues[0] == 'port') {
-                if ($lineValues[1] == '80') {
-                    $key = 'http';
-                    $http++;
-                    $currentIndex = $http;
-                } elseif ($lineValues[1] == '443') {
-                    $key = 'https';
-                    $https++;
-                    $currentIndex = $https;
-                } else {
-                    continue;
-                }
-                
-                $data[$key][$currentIndex]['domain'] = $lineValues[3];
-                $data[$key][$currentIndex]['config'] = $this->removeGrepData($lineValues[4]);
-            }
-            
-            if ($lineValues[0] == 'alias') {
-                $data[$key][$currentIndex]['aliases'][] = $lineValues[1];
-            }
-        }
-        
-        return $data;
-    }
-    
-    
+    /**
+     * Removes data from the linux grep command that is not wanted. Ea; the "(" at start and the ":x" linenumber
+     *
+     * @param $string
+     *
+     * @return string
+     */
     public function removeGrepData($string)
     {
         $data = explode(':', $string);
@@ -57,8 +18,27 @@ Class Format
         return ltrim($data[0], '(');
     }
     
+    /**
+     * Removes all leading spaces in a given string.
+     *
+     * @param $string
+     *
+     * @return string
+     */
     public function trimLeadingSpaces($string)
     {
         return trim($string, " \t.");
+    }
+    
+    /**
+     * Removes new lines in a given string.
+     *
+     * @param $string
+     *
+     * @return string
+     */
+    public function stripEOL($string)
+    {
+        return trim(preg_replace('/\s+/', ' ', $string));
     }
 }
