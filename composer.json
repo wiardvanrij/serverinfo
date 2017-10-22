@@ -1,0 +1,17 @@
+{
+  "name": "wiardvanrij/serverinfo",
+  "description": "Retreive serverinfo via SSH Wrapper",
+  "homepage": "https://github.com/wiardvanrij/serverinfo",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Wiard van Rij",
+      "email": "wiard@outlook.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ServerInfo\\": "src/ServerInfo"
+    }
+  }
+}
