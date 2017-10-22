@@ -9,6 +9,9 @@
       "email": "wiard@outlook.com"
     }
   ],
+  "require": {
+    "wiardvanrij/sshwrapper": "^1"
+  },
   "autoload": {
     "psr-4": {
       "ServerInfo\\": "src/ServerInfo"
