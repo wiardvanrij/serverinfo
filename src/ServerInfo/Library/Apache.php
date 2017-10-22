@@ -27,7 +27,7 @@ Class Apache
      *
      * @return array
      */
-    public function readVhost($string)
+    public function readApacheVhosts($string)
     {
         $lines = explode(PHP_EOL, $string);
         
